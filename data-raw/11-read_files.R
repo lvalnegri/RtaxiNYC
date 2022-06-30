@@ -26,29 +26,72 @@ unzip(tmpf, exdir = tmpd)
 yb <- st_read(file.path(tmpd, grep('.*shp$', unzip(tmpf, list = TRUE)$Name, value = TRUE))) |> 
           subset(select = 'LocationID') |> 
           merge(yzk, by.x = 'LocationID', by.y = 'id') |> 
-          st_transform(4326) |> 
+          st_transform(4326)
 unlink(tmpd)
+unlink(tmpf)
 # mapview::mapview(yb, zcol = 'borough')
 qs::qsave(yb, './data-raw/locations.sf')
 
 # Yellow Taxi Trip (ytt)
-for(x in 10:22){
+for(x in 10:21){
     for(y in 1:12){
         yp <- paste0(ifelse(y < 10, '0', ''), y)
-        download.file(
-            paste0('https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_20', x, '-', yp, '.parquet'), 
-            file.path(out_path, paste0('ytt', x, yp, '.parquet'))
+        message('Downloading ', x, yp)
+        tryCatch(
+            download.file(
+                paste0('https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_20', x, '-', yp, '.parquet'), 
+                file.path(out_path, paste0('ytt', x, yp, '.parquet')),
+                quiet = TRUE
+            ),
+            error = \(e) message(paste0('\n=> => ERROR: ytt', x, yp, ' not succeeded!\n'))
         )
     }
 }
 
-
 # Green Taxi Trip  (gtt)
-
-
+for(x in 10:21){
+    for(y in 1:12){
+        yp <- paste0(ifelse(y < 10, '0', ''), y)
+        message('Downloading ', x, yp)
+        tryCatch(
+            download.file(
+                paste0('', x, '-', yp, '.parquet'), 
+                file.path(out_path, paste0('gtt', x, yp, '.parquet')),
+                quiet = TRUE
+            ),
+            error = \(e) message(paste0('\n=> => ERROR: gtt', x, yp, ' not succeeded!\n'))
+        )
+    }
+}
 
 # For-Hire Vehicle Trip (hvt)
-
-
+for(x in 10:21){
+    for(y in 1:12){
+        yp <- paste0(ifelse(y < 10, '0', ''), y)
+        message('Downloading ', x, yp)
+        tryCatch(
+            download.file(
+                paste0('', x, '-', yp, '.parquet'), 
+                file.path(out_path, paste0('hvt', x, yp, '.parquet')),
+                quiet = TRUE
+            ),
+            error = \(e) message(paste0('\n=> => ERROR: hvt', x, yp, ' not succeeded!\n'))
+        )
+    }
+}
 
 # High Volume For-Hire Vehicle Trip (vvt)
+for(x in 10:21){
+    for(y in 1:12){
+        yp <- paste0(ifelse(y < 10, '0', ''), y)
+        message('Downloading ', x, yp)
+        tryCatch(
+            download.file(
+                paste0('', x, '-', yp, '.parquet'), 
+                file.path(out_path, paste0('vvt', x, yp, '.parquet')),
+                quiet = TRUE
+            ),
+            error = \(e) message(paste0('\n=> => ERROR: vvt', x, yp, ' not succeeded!\n'))
+        )
+    }
+}
