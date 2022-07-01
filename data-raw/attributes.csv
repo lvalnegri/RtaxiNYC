@@ -1,0 +1,16 @@
+var,code,value
+vendor_id,1,"Creative Mobile Technologies, LLC"
+vendor_id,2,VeriFone Inc.
+ratecode,1,Standard
+ratecode,2,JFK
+ratecode,3,Newark
+ratecode,4,Nassau or Westchester
+ratecode,5,Negotiated
+ratecode,6,Group
+ratecode,99,Unknown
+payment_type,1,Credit Card
+payment_type,2,Cash
+payment_type,3,No Charge
+payment_type,4,Dispute
+payment_type,5,Unknown
+payment_type,6,Voided Trip

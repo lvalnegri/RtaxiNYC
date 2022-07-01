@@ -25,12 +25,25 @@ download.file('https://s3.amazonaws.com/nyc-tlc/misc/taxi_zones.zip', tmpf)
 unzip(tmpf, exdir = tmpd)
 yb <- st_read(file.path(tmpd, grep('.*shp$', unzip(tmpf, list = TRUE)$Name, value = TRUE))) |> 
           subset(select = 'LocationID') |> 
-          merge(yzk, by.x = 'LocationID', by.y = 'id') |> 
+          setnames('LocationID', 'id') |> 
+          merge(yzk) |> 
           st_transform(4326)
 unlink(tmpd)
 unlink(tmpf)
 # mapview::mapview(yb, zcol = 'borough')
 qs::qsave(yb, './data-raw/locations.sf')
+
+fwrite(
+  data.table(
+    var   = c( rep('vendor_id', 2), rep('ratecode', 7), rep('payment_type', 6) ),
+    code  = c(1, 2, 1:6, 99, 1:6),
+    value = c(
+      'Creative Mobile Technologies, LLC', 'VeriFone Inc.',
+      'Standard', 'JFK', 'Newark', 'Nassau or Westchester', 'Negotiated', 'Group', 'Unknown',
+      'Credit Card', 'Cash', 'No Charge', 'Dispute', 'Unknown', 'Voided Trip'
+    )
+  ), './data-raw/attributes.csv')
+
 
 # Yellow Taxi Trip (ytt)
 for(x in 10:21){
