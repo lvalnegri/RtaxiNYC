@@ -1,0 +1,28 @@
+Package: RtaxiNYC
+Type: Package
+Date: 2022-11-31
+Title: Generic functions to facilitate analysis and visualization of NYC Taxi Trips
+Version: 0.0.1
+Authors@R: person(given = "Luca", family = "Valnegri", email = "l.valnegri@datamaps.co.uk", role = c("aut", "cre"))
+Description: Generic functions to facilitate Spatial Analysis and Visualizations of NYC Taxi Trips.
+License: MIT + file LICENSE
+Language: en-GB
+Encoding: UTF-8
+URL: https://github.com/lvalnegri/RtaxiNYC
+BugReports: https://github.com/lvalnegri/RtaxiNYC/issues
+Depends: R (>= 4.1)
+Imports:
+    data.table,
+    dplyr,
+    Rfuns,
+    sf,
+    utils
+Suggests:
+    knitr,
+    rmarkdown
+Remotes:
+    lvalnegri/Rfuns
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+VignetteBuilder: knitr
